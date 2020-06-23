@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         fab.setOnClickListener {
             val intent = Intent(this, EditActivity::class.java)
-            intent.putExtra(EditActivity.EXTRA_NOTE, mainActivityViewModel.note.value)
             startActivity(intent)
         }
     }

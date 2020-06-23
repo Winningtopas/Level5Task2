@@ -42,7 +42,6 @@ class EditActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         editViewModel = ViewModelProvider(this).get(EditViewModel::class.java)
-        editViewModel.note.value = intent.extras?.getParcelable(EXTRA_NOTE)!!
 
         editViewModel.note.observe(this, Observer { note ->
             if (note != null) {
