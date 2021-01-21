@@ -18,6 +18,19 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val notes: LiveData<List<Note>> = noteRepository.getAllGames()
     //val note = noteRepository.getNotepad()
 
+    fun deleteGame(game: Note, view: View) {
+        ioScope.launch {
+            noteRepository.deleteGame(game)
+        }
+        val snackBar = Snackbar.make(view, R.string.delete_game_success, Snackbar.LENGTH_LONG)
+        snackBar.setAction(R.string.undo) {
+            ioScope.launch {
+                noteRepository.insertGame(game)
+            }
+        }
+        snackBar.show()
+    }
+
     fun deleteAllGames(view: View) {
         val beforeGames = notes.value
         ioScope.launch {

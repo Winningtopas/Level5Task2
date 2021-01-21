@@ -32,7 +32,7 @@ class EditActivity : AppCompatActivity() {
         fab.setOnClickListener {
             editViewModel.note = Note(
                 etTitle.text.toString(),
-                etNote.text.toString(),
+                etPlatform.text.toString(),
                 editViewModel.tryGetDate(
                     etYear.text.toString(),
                     etMonth.text.toString(),

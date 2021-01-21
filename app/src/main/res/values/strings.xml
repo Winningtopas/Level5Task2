@@ -1,9 +1,16 @@
 <resources>
-    <string name="app_name">Level5Task1</string>
+    <string name="app_name">Game Backlog</string>
     <string name="action_settings">Settings</string>
     <string name="last_updated">Last updated: %1s</string>
     <string name="title_activity_edit">EditActivity</string>
     <string name="remove_all">Remove All</string>
     <string name="delete_all_succeed">Successfully deleted backlog</string>
     <string name="undo">Undo</string>
+    <string name="release_date">Release: %1$s</string>
+    <string name="title">Title</string>
+    <string name="platform">Platform</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="delete_game_success">Game successfully deleted</string>
 </resources>
