@@ -6,11 +6,12 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-@Parcelize
-@Entity
+@Entity(tableName = "note_table")
 data class Note(
     var title: String,
-    var lastUpdated: Date,
-    var text: String,
-    @PrimaryKey var id : Long? = null
-) : Parcelable
+    var platform: String,
+    var releaseDate: Date?,
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Long? = null
+)

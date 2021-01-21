@@ -30,20 +30,10 @@ abstract class NotepadRoomDatabase : RoomDatabase() {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
                             context.applicationContext,
-                            NotepadRoomDatabase::class.java, DATABASE_NAME
+                            NotepadRoomDatabase::class.java,
+                            DATABASE_NAME
                         )
-                            .fallbackToDestructiveMigration()
-                            .addCallback(object : RoomDatabase.Callback() {
-                                override fun onCreate(db: SupportSQLiteDatabase) {
-                                    super.onCreate(db)
-                                    INSTANCE?.let { database ->
-                                        CoroutineScope(Dispatchers.IO).launch {
-                                            database.noteDao().insertNote(Note("Notepad", Date(), ""))
-                                        }
-                                    }
-                                }
-                            })
-                            .build()
+                            .fallbackToDestructiveMigration().build()
                     }
                 }
             }

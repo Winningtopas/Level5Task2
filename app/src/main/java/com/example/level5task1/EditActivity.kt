@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.content_edit.*
 import java.util.*
+import kotlin.Result.Companion.success
 
 class EditActivity : AppCompatActivity() {
 
@@ -20,7 +21,7 @@ class EditActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit)
 
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Edit Notepad"
+        supportActionBar?.title = "Add Game"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         initViews()
@@ -29,33 +30,28 @@ class EditActivity : AppCompatActivity() {
 
     private fun initViews() {
         fab.setOnClickListener {
-
-            editViewModel.note.value?.apply {
-                title = etTitle.text.toString()
-                lastUpdated = Date()
-                text = etNote.text.toString()
-            }
-
-            editViewModel.updateNote()
+            editViewModel.note = Note(
+                etTitle.text.toString(),
+                etNote.text.toString(),
+                editViewModel.tryGetDate(
+                    etYear.text.toString(),
+                    etMonth.text.toString(),
+                    etDay.text.toString())
+            )
+            editViewModel.addGame()
         }
     }
 
     private fun initViewModel() {
         editViewModel = ViewModelProvider(this).get(EditViewModel::class.java)
 
-        editViewModel.note.observe(this, Observer { note ->
-            if (note != null) {
-                etTitle.setText(note.title)
-                etNote.setText(note.text)
-            }
-        })
-
         editViewModel.error.observe(this, Observer { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         })
 
-        editViewModel.success.observe(this, Observer { success ->
-            if (success) finish()
+
+        editViewModel.success.observe(this, Observer {
+            if (it) finish()
         })
     }
 

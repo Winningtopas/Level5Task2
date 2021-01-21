@@ -1,22 +1,21 @@
 package com.example.level5task1
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
-import com.example.level5task1.Note
+import androidx.room.*
 
 @Dao
 interface NoteDao {
 
+    @Query("SELECT * FROM note_table ORDER BY releaseDate ASC")
+    fun getAllGames(): LiveData<List<Note>>
+
+    @Query("DELETE FROM note_table")
+    suspend fun deleteAllGames()
+
     @Insert
-    suspend fun insertNote(note: Note)
+    suspend fun insertGame(game: Note)
 
-    @Query("SELECT * FROM Note LIMIT 1")
-    fun getNotepad(): LiveData<Note?>
-
-    @Update
-    suspend fun updateNote(note: Note)
+    @Delete
+    suspend fun deleteGame(game: Note)
 
 }

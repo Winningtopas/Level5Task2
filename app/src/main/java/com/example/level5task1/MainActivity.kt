@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         initViews()
-        initViewModel()
+        //initViewModel()
     }
 
     private fun initViews() {
@@ -33,15 +33,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViewModel() {
-        mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-
-        mainActivityViewModel.note.observe(this, Observer { note ->
-            if (note != null) {
-                tvTitle.text = note.title
-                tvLastUpdated.text = getString(R.string.last_updated, note.lastUpdated.toString())
-                tvNote.text = note.text
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.action_remove_all -> {
+                mainActivityViewModel.deleteAllGames(rvGames)
+                true
             }
-        })
+            else -> super.onOptionsItemSelected(item)
+        }
     }
+
 }

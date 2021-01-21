@@ -7,39 +7,62 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class EditViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val noteRepository = NoteRepository(application.applicationContext)
+    private val gameRepository = NoteRepository(application.applicationContext)
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
-    val note = MutableLiveData<Note?>()
-    val error = MutableLiveData<String?>()
+    var note: Note? = null
+    val error = MutableLiveData<String>()
     val success = MutableLiveData<Boolean>()
 
-    fun updateNote() {
-        if (isNoteValid()) {
+    fun addGame() {
+        if (isGameValid()) {
             mainScope.launch {
                 withContext(Dispatchers.IO) {
-                    noteRepository.updateNotepad(note.value!!)
+                    note?.let { gameRepository.insertGame(it) }
                 }
                 success.value = true
             }
         }
     }
 
-    private fun isNoteValid(): Boolean {
+    private fun isGameValid(): Boolean {
         return when {
-            note.value == null -> {
-                error.value = "Note must not be null"
+            note == null -> {
+                error.value = "Game must not be null"
                 false
             }
-            note.value!!.title.isBlank() -> {
-                error.value = "Title must not be empty"
+            note?.title.isNullOrBlank() -> {
+                error.value = "Title must not be null or empty"
+                false
+            }
+            note?.platform.isNullOrBlank() -> {
+                error.value = "Platform must not be null or empty"
+                false
+            }
+            note?.releaseDate == null -> {
+                error.value = "Date is invalid"
                 false
             }
             else -> true
         }
     }
 
+    fun tryGetDate(day: String, month: String, year: String) : Date?
+    {
+        return try {
+            val cal = Calendar.getInstance()
+            cal.isLenient = false
+            cal.set(day.toInt(), month.toInt() - 1, year.toInt())
+            cal.time
+        } catch (e: Exception) {
+            null
+        }
+
+    }
 }

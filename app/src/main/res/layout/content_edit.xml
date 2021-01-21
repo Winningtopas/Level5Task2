@@ -36,27 +36,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <EditText
+            android:id="@+id/etNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:autofillHints=""
+            android:fontFamily="sans-serif-medium"
+            android:gravity="top"
+            android:inputType="number"
+            android:text="Day"
+            android:textIsSelectable="true"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etTitle" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="128dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="8dp"
             android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/etNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:autofillHints=""
-                android:fontFamily="sans-serif-medium"
-                android:gravity="top"
-                android:text="Day"
-                android:textIsSelectable="true"
-                android:textSize="14sp"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etTitle" />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -68,9 +71,10 @@
                 app:layout_constraintTop_toBottomOf="@id/etTitle">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAddTitle"
+                    android:id="@+id/etDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
                     android:hint="Day" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,9 +87,10 @@
                 app:layout_constraintTop_toBottomOf="@id/etTitle">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAddTitle2"
+                    android:id="@+id/etMonth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
                     android:hint="Month" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,9 +103,10 @@
                 app:layout_constraintTop_toBottomOf="@id/etTitle">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAddTitle3"
+                    android:id="@+id/etYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
                     android:hint="Year" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
